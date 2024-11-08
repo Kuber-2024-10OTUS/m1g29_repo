@@ -17,7 +17,7 @@ spec:
       lifecycle:
         preStop:
           exec:
-            command: ["/bin/sh", "-c", "rm /homework/index.html"]  # Удаляем файл перед завершением контейнера
+            command: ["/bin/sh", "-c", "rm /homework/index.html"]
   initContainers:
     - name: init-container
       image: busybox
