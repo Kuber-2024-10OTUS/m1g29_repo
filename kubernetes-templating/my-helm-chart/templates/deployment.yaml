@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-helm-chart.fullname" . }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      serviceAccountName: monitoring
+      containers:
+        - name: web-server
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /homework
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+            - name: my-config
+              mountPath: /homework/conf
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm /homework/index.html"]
+          readinessProbe:
+            {{- if .Values.readinessProbe.enabled }}
+            httpGet:
+              path: /index.html
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            {{- end }}
+
+      initContainers:
+        {{- if .Values.initContainers.enabled }}
+        - name: init-container
+          image: busybox
+          command: ['sh', '-c', 'echo "Hello, World!" > /init/index.html']
+          volumeMounts:
+            - name: shared-volume
+              mountPath: /init
+        {{- end }}
+      volumes:
+        - name: shared-volume
+          persistentVolumeClaim:
+            claimName: my-pvc
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: my-config
+          configMap:
+            name: my-config

@@ -1,0 +1,41 @@
+namespace: homework
+
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: latest
+
+service:
+  name: my-service
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+pvc:
+  storageClassName: my-storage-class
+  accessModes:
+    - ReadWriteMany
+  size: 1Gi
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+initContainers:
+  enabled: true
+
+monitoring:
+  enabled: true
+
+ingress:
+  enabled: true
+  host: "homework.otus"
+  name: "my-ingress"
+
