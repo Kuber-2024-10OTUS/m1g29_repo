@@ -1,0 +1,10 @@
+controller:
+  replicaCount: 1
+image:
+  tag: latest
+auth:
+  enabled: false
+externalAccess:
+  enabled: false
+service:
+  type: ClusterIP
