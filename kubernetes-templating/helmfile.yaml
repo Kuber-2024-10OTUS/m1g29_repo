@@ -1,0 +1,12 @@
+releases:
+  - name: my-kafka-prod
+    chart: oci://registry-1.docker.io/bitnamicharts/kafka
+    namespace: prod
+    values:
+      - values-prod.yaml
+
+  - name: my-kafka-dev
+    chart: oci://registry-1.docker.io/bitnamicharts/kafka
+    namespace: dev
+    values:
+      - values-dev.yaml
