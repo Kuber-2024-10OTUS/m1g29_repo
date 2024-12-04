@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nginx-custom-stub
+  labels:
+    team: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: nginx-custom-stub
+  endpoints:
+  - path: /metrics
+    port: metrics
+  jobLabel: nginx-custom-stub
