@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-pod
+  namespace: default
+spec:
+  containers:
+    - name: csi-pod
+      image: nginx
+      volumeMounts:
+        - name: csi-hw
+          mountPath: /data
+  volumes:
+    - name: csi-hw
+      persistentVolumeClaim:
+        claimName: csi-pvc
+        readOnly: false
