@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-distroless
+spec:
+  containers:
+    - name: nginx
+      image: kyos0109/nginx-distroless
+      ports:
+        - containerPort: 80
+      securityContext:
+        capabilities:
+          add:
+            - SYS_PTRACE
