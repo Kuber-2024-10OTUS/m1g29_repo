@@ -1,0 +1,6 @@
+NAME       STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION     CONTAINER-RUNTIME
+master-1   Ready    control-plane   6m59s   v1.32.0   172.16.0.28   <none>        Ubuntu 24.04.1 LTS   6.8.0-52-generic   containerd://2.0.2
+master-2   Ready    control-plane   6m45s   v1.32.0   172.16.0.8    <none>        Ubuntu 24.04.1 LTS   6.8.0-52-generic   containerd://2.0.2
+master-3   Ready    control-plane   6m42s   v1.32.0   172.16.0.26   <none>        Ubuntu 24.04.1 LTS   6.8.0-52-generic   containerd://2.0.2
+worker-1   Ready    <none>          6m3s    v1.32.0   172.16.0.20   <none>        Ubuntu 24.04.1 LTS   6.8.0-52-generic   containerd://2.0.2
+worker-2   Ready    <none>          6m3s    v1.32.0   172.16.0.27   <none>        Ubuntu 24.04.1 LTS   6.8.0-52-generic   containerd://2.0.2
